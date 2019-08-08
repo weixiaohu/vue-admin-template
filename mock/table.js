@@ -11,12 +11,34 @@ const data = Mock.mock({
   }]
 })
 
+const invalidTerminals = Mock.mock({
+  'items|30': [{
+    name: '@cword(10, 20)',
+    type: '@cword(4)',
+    reason: '@cword(10, 20)'
+  }]
+})
+
 export default [
   {
     url: '/table/list',
     type: 'get',
     response: config => {
       const items = data.items
+      return {
+        code: 20000,
+        data: {
+          total: items.length,
+          items: items
+        }
+      }
+    }
+  },
+  {
+    url: '/table/invalid/list',
+    type: 'get',
+    response: config => {
+      const items = invalidTerminals.items
       return {
         code: 20000,
         data: {

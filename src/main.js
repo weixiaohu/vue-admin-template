@@ -5,6 +5,7 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
+import moment from 'moment'
 
 import '@/styles/index.scss' // global css
 
@@ -32,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
 Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
-
+Object.defineProperty(Vue.prototype, '$moment', { value: moment })
 new Vue({
   el: '#app',
   router,

@@ -1,0 +1,35 @@
+<template>
+  <div class="card-container">
+    <el-row :gutter="50">
+      <el-col :md="6" :lg="8">
+        <router-link to="/form/index">
+          <process-card :filename="'测试文件.xlsx'" :processed-num="892" :unprocessed-num="120" :update-time="updateTime1" />
+        </router-link>
+      </el-col>
+      <el-col :md="6" :lg="8">
+        <process-card :filename="'测试文件1.xlsx'" :processed-num="789" :unprocessed-num="100" :update-time="updateTime2" />
+      </el-col>
+      <el-col :md="6" :lg="8">
+        <process-card :filename="'测试文件2.xlsx'" :processed-num="4126" :unprocessed-num="1520" :update-time="updateTime3" />
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import ProcessCard from './ProcessCard'
+export default {
+  name: 'Terminal',
+  components: { ProcessCard },
+  data() {
+    return {
+      updateTime1: this.$moment('2019-08-01 12:12:12').toDate(),
+      updateTime2: this.$moment('2019-07-01 12:13:12').toDate(),
+      updateTime3: this.$moment('2019-08-09 10:12:50').toDate()
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+</style>

@@ -7,3 +7,10 @@ export function getList(params) {
     params
   })
 }
+
+export function getInvalidTerminals() {
+  return request({
+    url: '/table/invalid/list',
+    method: 'get'
+  })
+}

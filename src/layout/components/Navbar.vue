@@ -1,51 +1,63 @@
 <template>
   <div class="navbar">
-    <breadcrumb class="breadcrumb-container" />
-    <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar" alt="avatar">
-          <i class="el-icon-caret-bottom" />
+    <!--<breadcrumb class="breadcrumb-container" />-->
+    <el-row>
+      <el-col :span="16">
+        <el-menu :default-active="defaultActiveIndex" mode="horizontal" @select="handleSelect">
+          <el-menu-item v-for="route in routes" :key="route.path" :index="route.path">{{ route.meta.title }}</el-menu-item>
+        </el-menu>
+      </el-col>
+      <el-col :span="8">
+        <div class="right-menu">
+          <el-dropdown class="avatar-container" trigger="click">
+            <div class="avatar-wrapper">
+              <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar" alt="avatar">
+              <i class="el-icon-caret-bottom" />
+            </div>
+            <el-dropdown-menu slot="dropdown" class="user-dropdown">
+              <router-link to="/">
+                <el-dropdown-item>
+                  Home
+                </el-dropdown-item>
+              </router-link>
+              <el-dropdown-item divided>
+                <span style="display:block;" @click="logout">Log Out</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <div class="search-container">
+            <el-input v-model="search" size="medium" placeholder="请输入内容">
+              <el-button slot="append" icon="el-icon-search" />
+            </el-input>
+          </div>
         </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
-            <el-dropdown-item>
-              Home
-            </el-dropdown-item>
-          </router-link>
-          <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">Log Out</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <div class="search-container">
-        <el-input v-model="search" size="medium" placeholder="请输入内容">
-          <el-button slot="append" icon="el-icon-search" />
-        </el-input>
-      </div>
-    </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
-
 export default {
-  components: {
-    Breadcrumb
-  },
   data() {
     return {
-      search: ''
+      search: '',
+      defaultActiveIndex: this.$route.path
     }
   },
   computed: {
     ...mapGetters([
       'avatar'
-    ])
+    ]),
+    routes() {
+      return this.$router.options.routes.filter(i => !i.hidden)
+    }
   },
   methods: {
+    handleSelect(index) {
+      this.$router.push(index)
+      this.defaultActiveIndex = index
+    },
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
@@ -55,10 +67,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .navbar {
-  height: 50px;
+  height: 60px;
   overflow: hidden;
   position: relative;
-  background: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
   .breadcrumb-container {
     float: left;
@@ -66,7 +77,7 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 50px;
+    line-height: 60px;
 
     &:focus {
       outline: none;

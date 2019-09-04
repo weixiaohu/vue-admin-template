@@ -36,19 +36,29 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
   {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
-    redirect: '/process',
+    redirect: '/home',
+    meta: { title: '首页' },
     children: [{
-      path: 'process',
+      path: 'home',
+      component: () => import('@/views/home'),
+      meta: { title: '首页' }
+    }]
+  },
+  {
+    path: '/process',
+    component: Layout,
+    redirect: '/process/',
+    meta: { title: '数据处理' },
+    children: [{
+      path: '/',
       component: () => import('@/views/process'),
       meta: { title: '处理配置', showParent: true },
       children: [{
@@ -59,76 +69,28 @@ export const constantRoutes = [
       }]
     }]
   },
-
   {
-    path: '/nested',
+    path: '/checking',
     component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
-      }
-    ]
+    redirect: '/checking/',
+    meta: { title: '数据验证' },
+    children: [{
+      path: '/',
+      component: () => import('@/views/checking'),
+      meta: { title: '数据验证' }
+    }]
   },
-
   {
-    path: 'external-link',
+    path: '/profile',
     component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
+    redirect: '/profile/',
+    meta: { title: '个人中心' },
+    children: [{
+      path: '/',
+      component: () => import('@/views/profile'),
+      meta: { title: '个人中心' }
+    }]
   },
-
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

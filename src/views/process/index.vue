@@ -1,6 +1,6 @@
 <template>
-  <div class="dashboard-container">
-    <el-tabs v-show="$route.meta.showParent" v-model="processTab" @tab-click="handleClick">
+  <div class="app-container">
+    <el-tabs v-show="$route.meta.showParent" v-model="processTab" type="border-card" @tab-click="handleClick">
       <el-tab-pane label="标准处理" name="standard">
         <standard />
       </el-tab-pane>
@@ -37,9 +37,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 15px;
+.app-container {
+  .el-tabs{
+    min-height: calc(100vh - 90px);
+    width: 100%;
+    position: relative;
+    overflow: auto;
   }
 }
 </style>

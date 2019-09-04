@@ -36,7 +36,7 @@
     <el-card class="card-box">
       <div slot="header">
         <span>异常终端原因</span>
-        <el-button class="tool-btn" type="text">终端验证</el-button>
+        <el-button class="tool-btn" type="text" @click="dialogFormVisible = true">终端验证</el-button>
         <el-button class="tool-btn" type="text">下载数据</el-button>
       </div>
       <el-table
@@ -136,6 +136,42 @@
         />
       </el-table>
     </el-card>
+    <el-dialog
+      title="终端验证"
+      :visible.sync="dialogFormVisible"
+      @closed="handleClosed"
+    >
+      <el-steps
+        :active="activeStep"
+        finish-status="success"
+        align-center
+        :style="{marginBottom: '40px'}"
+      >
+        <el-step title="上传文件" />
+        <el-step title="终端验证" />
+        <el-step title="返回结果" />
+      </el-steps>
+      <el-upload
+        ref="upload"
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :on-progress="handleProgress"
+        :on-success="handleSuccess"
+        :on-exceed="handleExceed"
+        :on-error="handleError"
+        :file-list="fileList"
+        :auto-upload="false"
+        :limit="1"
+        false
+      >
+        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传验证</el-button>
+        <el-button v-show="showDownload" style="margin-left: 10px;" size="small" @click="download">下载数据</el-button>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+      </el-upload>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -205,7 +241,11 @@ export default {
           }
         ],
         animationDuration: 2000
-      }
+      },
+      dialogFormVisible: false,
+      activeStep: 0,
+      fileList: [],
+      showDownload: false
     }
   },
   created() {
@@ -219,6 +259,36 @@ export default {
         this.invalidTotal = response.data.total
         this.invalidListLoading = false
       })
+    },
+    submitUpload() {
+      this.$refs.upload.submit()
+    },
+    handleSuccess(response, file, fileList) {
+      this.activeStep = 3
+      this.showDownload = true
+    },
+    handleProgress(file, fileList) {
+      this.activeStep = 2
+    },
+    handleError() {
+      this.activeStep = 0
+    },
+    handleExceed() {
+      this.$message({
+        message: '一次只能上传验证一个文件',
+        type: 'warning'
+      })
+    },
+    download() {
+      this.$message({
+        message: '下载成功',
+        type: 'success'
+      })
+    },
+    handleClosed() {
+      this.showDownload = false
+      this.$refs.upload.clearFiles()
+      this.activeStep = 0
     }
   }
 }

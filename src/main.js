@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+import ECharts from 'vue-echarts'
+import 'echarts'
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
@@ -31,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
-
+Vue.component('v-chart', ECharts)
 Vue.config.productionTip = false
 Object.defineProperty(Vue.prototype, '$moment', { value: moment })
 new Vue({

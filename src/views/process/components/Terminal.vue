@@ -2,15 +2,19 @@
   <div class="card-container">
     <el-row :gutter="50">
       <el-col :md="6" :lg="8">
-        <router-link to="/form/index">
+        <router-link to="/process/detail/ttt">
           <process-card :filename="'测试文件.xlsx'" :processed-num="892" :unprocessed-num="120" :update-time="updateTime1" />
         </router-link>
       </el-col>
       <el-col :md="6" :lg="8">
-        <process-card :filename="'测试文件1.xlsx'" :processed-num="789" :unprocessed-num="100" :update-time="updateTime2" />
+        <router-link to="/process/detail/ttt">
+          <process-card :filename="'测试文件1.xlsx'" :processed-num="789" :unprocessed-num="100" :update-time="updateTime2" />
+        </router-link>
       </el-col>
       <el-col :md="6" :lg="8">
-        <process-card :filename="'测试文件2.xlsx'" :processed-num="4126" :unprocessed-num="1520" :update-time="updateTime3" />
+        <router-link to="/process/detail/ttt">
+          <process-card :filename="'测试文件2.xlsx'" :processed-num="4126" :unprocessed-num="1520" :update-time="updateTime3" />
+        </router-link>
       </el-col>
     </el-row>
   </div>

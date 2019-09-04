@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <el-tabs v-show="$route.meta.showParent" v-model="activeName" @tab-click="handleClick">
+    <el-tabs v-show="$route.meta.showParent" v-model="processTab" @tab-click="handleClick">
       <el-tab-pane label="标准处理" name="standard">
         <standard />
       </el-tab-pane>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Standard from './components/Standard'
 import Terminal from './components/Terminal'
 import Product from './components/Product'
@@ -24,18 +24,13 @@ import Product from './components/Product'
 export default {
   name: 'Process',
   components: { Standard, Terminal, Product },
-  data() {
-    return {
-      activeName: 'standard'
-    }
-  },
   computed: {
-    ...mapGetters([
-      'name'
-    ])
+    ...mapGetters(['processTab'])
   },
   methods: {
-    handleClick(tab, event) {
+    ...mapActions('app', ['toggleProcessTab']),
+    handleClick(tab) {
+      this.toggleProcessTab(tab.name)
     }
   }
 }

@@ -7,10 +7,14 @@
         </router-link>
       </el-col>
       <el-col :md="6" :lg="8">
-        <process-card :filename="'测试文件1.xlsx'" :processed-num="493" :unprocessed-num="100" :update-time="updateTime2" />
+        <router-link to="/process/detail/ttt">
+          <process-card :filename="'测试文件1.xlsx'" :processed-num="493" :unprocessed-num="100" :update-time="updateTime2" />
+        </router-link>
       </el-col>
       <el-col :md="6" :lg="8">
-        <process-card :filename="'测试文件2.xlsx'" :processed-num="2500" :unprocessed-num="1520" :update-time="updateTime3" />
+        <router-link to="/process/detail/ttt">
+          <process-card :filename="'测试文件2.xlsx'" :processed-num="2500" :unprocessed-num="1520" :update-time="updateTime3" />
+        </router-link>
       </el-col>
     </el-row>
   </div>

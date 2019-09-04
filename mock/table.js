@@ -12,7 +12,7 @@ const data = Mock.mock({
 })
 
 const invalidTerminals = Mock.mock({
-  'items|30': [{
+  'items|5': [{
     name: '@cword(10, 20)',
     type: '@cword(4)',
     reason: '@cword(10, 20)'

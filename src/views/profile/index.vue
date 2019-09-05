@@ -2,40 +2,54 @@
   <div class="app-container">
     <el-row :gutter="15" style="margin-bottom: 15px;">
       <el-col :span="8">
-        <el-card class="box-card" style="height: 300px;">
-          <div slot="header">
-            <span>我的账户</span>
-          </div>
-        </el-card>
+        <user-card :user="user" />
       </el-col>
       <el-col :span="16">
-        <el-card class="box-card" style="height: 300px;">
-          <div slot="header">
-            <span>充积分</span>
-          </div>
-        </el-card>
+        <recharge />
       </el-col>
     </el-row>
     <el-row :gutter="15">
-      <el-col :span="24">
-        <el-card class="box-card" style="height: 600px;">
-          <div slot="header">
-            <span>充值明细</span>
-          </div>
-        </el-card>
+      <el-col :span="12">
+        <recharge-details />
+      </el-col>
+      <el-col :span="12">
+        <use-details />
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex'
+import UserCard from './components/UserCard'
+import Recharge from './components/Recharge'
+import UseDetails from './components/UseDetails'
+import RechargeDetails from './components/RechargeDetails'
 export default {
+  name: 'Profile',
+  components: { UserCard, Recharge, UseDetails, RechargeDetails },
   data() {
     return {
+      user: {}
     }
   },
+  computed: {
+    ...mapGetters([
+      'name',
+      'avatar'
+    ])
+  },
+  created() {
+    this.getUser()
+  },
   methods: {
+    getUser() {
+      this.user = {
+        name: this.name,
+        email: 'admin@test.com',
+        avatar: this.avatar
+      }
+    }
   }
 }
 </script>

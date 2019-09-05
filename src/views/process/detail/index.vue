@@ -137,6 +137,7 @@
       </el-table>
     </el-card>
     <el-dialog
+      v-el-drag-dialog
       title="终端验证"
       :visible.sync="dialogFormVisible"
       @closed="handleClosed"
@@ -176,7 +177,10 @@
 </template>
 <script>
 import { getInvalidTerminals } from '@/api/table'
+import elDragDialog from '@/directive/el-drag-dialog'
+
 export default {
+  directives: { elDragDialog },
   // eslint-disable-next-line vue/require-prop-types
   props: ['id'],
   data() {
@@ -295,8 +299,12 @@ export default {
 </script>
 <style lang="scss" scoped>
   .card-container{
-    width: 1200px;
-    margin:auto;
+    @media screen and (max-width: 1920px) {
+      width: 1280px;
+    }
+    @media screen and (max-width: 1280px) {
+      width: 1230px;
+    }
     .card-box{
       margin-bottom: 15px;
       .tool-btn{
